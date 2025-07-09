@@ -6,6 +6,8 @@ spring:
     url: jdbc:mysql://8.140.248.234:3306/xiaoz?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=utf8
     username: root
     password: laopo5203344..
+server:
+  port: 8082
 
 # MyBatis ??
 mybatis:
