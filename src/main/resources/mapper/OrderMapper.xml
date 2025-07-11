@@ -5,11 +5,12 @@
 <mapper namespace="com.farben.springboot.xiaozhang.dao.OrderDao">
 
     <insert id="insertOrder">
-        INSERT INTO order (order_no, user_id, total_amount, status)
+        INSERT INTO  `order`  (order_no, user_id, total_amount, status)
                     VALUES (#{orderNo}, #{userId}, #{totalAmount}, 0)
     </insert>
 
     <select id="getOrderId" resultType="java.lang.Long">
-        SELECT id FROM order WHERE order_no = #{orderNo}
+        SELECT id FROM `order` WHERE order_no = #{orderNo}
     </select>
+
 </mapper>

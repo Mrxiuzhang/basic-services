@@ -14,7 +14,7 @@
     </select>
 
     <select id="getStock" resultType="java.lang.Integer">
-        SELECT stock FROM product WHERE id =#{product}
+        SELECT stock FROM product WHERE id =#{productId}
     </select>
 
 </mapper>

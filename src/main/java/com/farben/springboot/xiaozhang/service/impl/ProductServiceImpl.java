@@ -10,6 +10,7 @@ import com.farben.springboot.xiaozhang.service.ProductService;
 import com.farben.springboot.xiaozhang.utils.RedisDistributedLock;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,7 +41,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, ProductDto> impl
      */
     @Transactional
     public boolean reduceStockWithLock(Long productId, int quantity) {
-        // 获取分布式锁
+
         String lockValue = redisLock.lock(productId);
         if (lockValue == null) {
             log.error("获取分布式锁失败, productId: {}", productId);

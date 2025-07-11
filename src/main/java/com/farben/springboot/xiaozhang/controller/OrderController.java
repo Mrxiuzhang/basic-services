@@ -87,7 +87,7 @@ public class OrderController {
         Integer finalStock = productDao.getStock(productId);
 
         // 最多只能成功扣减3次（10/3≈3.33）
-        //assertTrue(finalStock >= 1 && finalStock <= 10);
+        assertTrue(finalStock >= 1 && finalStock <= 10,"最多只能成功扣减3次");
 
         return null;
     }

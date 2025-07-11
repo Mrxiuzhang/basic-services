@@ -7,6 +7,6 @@
     <insert id="insertOrderItem">
         INSERT INTO order_item (order_id, product_id, product_name,
                             product_price, quantity, subtotal)
-                VALUES (#{orderId}, #{productId}, #{orderName}, #{productPrice}, #{quantity}, #{subtotal})
+                VALUES (#{orderId}, #{productId}, #{productName}, #{productPrice}, #{quantity}, #{subtotal})
     </insert>
 </mapper>

@@ -3,6 +3,9 @@ package com.farben.springboot.xiaozhang.utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.core.RedisCallback;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +20,7 @@ public class RedisDistributedLock {
 
 
     @Autowired
-    private StringRedisTemplate redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
     // 锁前缀
     private static final String LOCK_PREFIX = "lock:product:";
@@ -48,6 +51,7 @@ public class RedisDistributedLock {
      * @return 锁标识（用于解锁）
      */
     public String lock(Long productId, long timeout, TimeUnit unit) {
+
         String lockKey = LOCK_PREFIX + productId;
         String lockValue = String.valueOf(System.currentTimeMillis() + unit.toMillis(timeout));
 
@@ -80,7 +84,7 @@ public class RedisDistributedLock {
      */
     public void unlock(Long productId, String lockValue) {
         String lockKey = LOCK_PREFIX + productId;
-        String currentValue = redisTemplate.opsForValue().get(lockKey);
+        String currentValue = (String) redisTemplate.opsForValue().get(lockKey);
 
         // 只有锁的持有者才能释放锁
         if (lockValue != null && lockValue.equals(currentValue)) {
@@ -114,7 +118,7 @@ public class RedisDistributedLock {
     }
 
     public boolean unlock(String key, String value) {
-        String currentValue = redisTemplate.opsForValue().get(key);
+        String currentValue = (String) redisTemplate.opsForValue().get(key);
         if (currentValue != null && currentValue.equals(value)) {
             redisTemplate.delete(key);
             return true;
