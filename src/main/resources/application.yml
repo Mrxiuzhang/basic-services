@@ -1,4 +1,22 @@
 spring:
+  redis:
+    host: 8.140.248.234
+    port: 6379
+    password:  # 如果有密码
+    database: 0
+    timeout: 3000
+    lettuce:
+      pool:
+        max-active: 16
+        max-idle: 8
+        min-idle: 4
+        max-wait: 1000ms
+      cluster:
+        enabled: false # 明确禁用集群
+      refresh:
+        adaptive: false # 禁用自适应拓扑刷新
+        period: 0 # 禁用定期拓扑刷新
+      shutdown-timeout: 100ms
   application:
     name: xiaozhang
   datasource:
